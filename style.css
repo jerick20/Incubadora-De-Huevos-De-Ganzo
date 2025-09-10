@@ -1,0 +1,94 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+  color: #03314b;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 15px;
+}
+
+.container {
+  max-width: 900px;
+  background: #ffffffdd;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+  text-align: center;
+  color: #0077b6;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+h2 {
+  color: #023e8a;
+  margin-top: 30px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #0077b6;
+  padding-bottom: 4px;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+ul {
+  margin: 0 0 20px 20px;
+  font-size: 1rem;
+  color: #014f86;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #555;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.integrantes {
+  margin-top: 25px;
+  background: #caf0f8;
+  padding: 18px;
+  border-radius: 8px;
+}
+
+.integrantes strong {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: #0077b6;
+}
+
+.bibliografia {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.bibliografia a {
+  color: #0077b6;
+  text-decoration: none;
+}
+
+.bibliografia a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 25px 20px;
+  }
+}
