@@ -5,58 +5,232 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Incubadora De Huevos De Ganzo</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="index.js"></script>
 </head>
 <body>
   <main class="container" role="main">
-    <h1>Incubadora De Huevos De Ganzo</h1>
+    <header>
+      <h1>Incubadora De Huevos De Ganzo</h1>
+      <p class="subtitle">Control de temperatura y humedad — monitoreo y contador de días</p>
+    </header>
 
-    <section aria-labelledby="incubadora-title">
-      <h2 id="incubadora-title">Incubadora de Huevos</h2>
-      <p>Las máquinas para incubar huevo se utilizan cuando no está el ave o reptil que incuba o empolla. Dicho de otro modo, una incubadora te permite incubar huevos sin tener gallinas. Así, pueden desarrollarse los huevos hasta convertirse en un animal vivo.
-También, las incubadoras de huevos se utilizan para cuidar de los pequeños animales durante los primeros días de vida, para suplir y cumplir de alguna manera el rol de madre cuidadora que, en el caso de los pollitos, lo hacen las gallinas.
-Otra aplicación muy implementada, es para la producción masiva de aves, ya que es factible controlar los parámetros de la incubación y asegurar que los animales nazcan sanos y, al mismo tiempo, para convertirse en animales con fines productivos.</p>
+    <!-- ===================== DISEÑO Y CONCEPTUALIZACIÓN ===================== -->
+    <section aria-labelledby="design-title" class="design-section">
+      <h2 id="design-title">Diseño y Conceptualización del Sistema</h2>
+      <p>
+        El sistema se basa en un microcontrolador (Arduino UNO) que recibe datos de sensores de temperatura y 
+        humedad. Estos datos se procesan y se envían a una aplicación móvil mediante un módulo de comunicación 
+        inalámbrica. La aplicación muestra en tiempo real los valores y permite el monitoreo del proceso de incubación.
+      </p>
     </section>
 
-    <section aria-labelledby="bluetooth-title">
-      <h2 id="bluetooth-title">Módulo BlueTooth HC-06</h2>
+    <!-- Objetivos -->
+    <section aria-labelledby="objectives-title">
+      <h2 id="objectives-title">Objetivos</h2>
       <ul>
-        <li>Presentar los conceptos básicos del BlueTooth.</li>
-        <li>Presentar los comandos AT.</li>
-        <li>Introducir el módulo BlueTooth HC-06.</li>
-        <li>Presentar un programa básico de comunicación entre un teléfono externo y un Arduino mediante el módulo BlueTooth.</li>
+        <li>Diseñar el sistema con sus componentes principales.</li>
+        <li>Definir la conexión entre sensores, microcontrolador y aplicación.</li>
+        <li>Presentar un diagrama de bloques claro y coherente.</li>
       </ul>
     </section>
 
-    <section aria-labelledby="sensor-temperatura-title">
-      <h2 id="sensor-temperatura-title">Sensor de Temperatura</h2>
-      <p>Un sensor de temperatura es un sistema que detecta variaciones en la temperatura del aire o del agua y las transforma en una señal eléctrica que llega hasta un sistema electrónico. Esta señal conlleva determinados cambios en ese sistema electrónico para la regulación de la temperatura.</p>
+    <!-- Diagrama de bloques -->
+    <section aria-labelledby="diagram-title">
+  <h2 id="diagram-title">Diagrama de Bloques del Sistema</h2>
+  <figure>
+    <!-- Diagrama de bloques estilo ejemplo -->
+    <svg width="100%" height="400" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bloque: Sensores -->
+      <rect x="50" y="140" width="200" height="100" fill="#cce5ff" stroke="#004085" stroke-width="2" rx="10"/>
+      <text x="150" y="190" font-size="18" text-anchor="middle" fill="#004085">Sensores</text>
+      <text x="150" y="210" font-size="14" text-anchor="middle" fill="#004085">(Temperatura y Humedad)</text>
+
+      <!-- Flecha hacia Arduino -->
+      <line x1="250" y1="190" x2="320" y2="190" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Bloque: Arduino UNO -->
+      <rect x="320" y="120" width="200" height="140" fill="#d4edda" stroke="#155724" stroke-width="2" rx="10"/>
+      <text x="420" y="190" font-size="20" text-anchor="middle" fill="#155724">Arduino UNO</text>
+
+      <!-- Flecha hacia Bluetooth -->
+      <line x1="520" y1="190" x2="600" y2="190" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Bloque: Módulo Bluetooth -->
+      <rect x="600" y="140" width="200" height="100" fill="#fff3cd" stroke="#856404" stroke-width="2" rx="10"/>
+      <text x="700" y="190" font-size="16" text-anchor="middle" fill="#856404">Módulo Bluetooth HC-06</text>
+
+      <!-- Flecha hacia Aplicación -->
+      <line x1="800" y1="190" x2="870" y2="190" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Bloque: Aplicación Móvil -->
+      <rect x="870" y="140" width="200" height="100" fill="#f8d7da" stroke="#721c24" stroke-width="2" rx="10"/>
+      <text x="970" y="180" font-size="18" text-anchor="middle" fill="#721c24">Aplicación Móvil</text>
+      <text x="970" y="200" font-size="14" text-anchor="middle" fill="#721c24">(MIT App Inventor)</text>
+
+      <!-- Definición de flechas -->
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L6,3 z" fill="#000"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <figcaption>
+      Entradas (Sensores de temperatura y humedad) → Procesamiento (Arduino UNO) → Comunicación (Bluetooth HC-06) → Salida (Aplicación móvil).
+    </figcaption>
+  </figure>
+</section>
+
+    <!-- Comunicación -->
+    <section aria-labelledby="communication-title">
+      <h2 id="communication-title">Tipo de Comunicación Seleccionada</h2>
+      <p>
+        Se eligió <strong>Bluetooth (HC-06)</strong> por ser de bajo costo, fácil implementación y adecuado 
+        para la comunicación entre Arduino y dispositivos Android. Permite enviar lecturas en tiempo real sin 
+        necesidad de internet.
+      </p>
     </section>
 
-    <section aria-labelledby="modulo-rele-title">
-      <h2 id="modulo-rele-title">Módulo Relé con Sensor de Humedad HR202</h2>
-      <p>Este módulo está diseñado para la detección de humedad en el ambiente y el control automático de dispositivos eléctricos mediante un relé. Ideal para sistemas de riego automático, invernaderos, y control de humedad en entornos industriales y domésticos.</p>
+    <!-- Plataforma de la aplicación -->
+    <section aria-labelledby="app-title">
+      <h2 id="app-title">Plataforma de la Aplicación</h2>
+      <p>
+        Se seleccionó <strong>MIT App Inventor</strong> porque facilita la creación de interfaces gráficas, 
+        conexión Bluetooth y visualización de datos sin necesidad de programación avanzada. Además, permite 
+        exportar la aplicación a Android.
+      </p>
     </section>
 
+    <!-- Documentación -->
+    <section aria-labelledby="documentation-title">
+      <h2 id="documentation-title">Documentación en el Sitio Web</h2>
+      <p>
+        En esta página se incluyen imágenes, explicaciones y justificación del diseño técnico del proyecto. 
+        La documentación servirá como guía para la construcción física y como referencia para futuras mejoras.
+      </p>
+    </section>
+
+    <!-- Criterios de evaluación -->
+    <section aria-labelledby="criteria-title">
+      <h2 id="criteria-title">Criterios de Evaluación</h2>
+      <ul>
+        <li>Claridad y coherencia del diagrama de bloques.</li>
+        <li>Justificación del tipo de comunicación y aplicación seleccionada.</li>
+        <li>Documentación completa y publicada en Github Pages.</li>
+      </ul>
+    </section>
+
+    <!-- Recursos -->
+    <section aria-labelledby="resources-title">
+      <h2 id="resources-title">Recursos</h2>
+      <ul>
+        <li>Software de diagramas: Lucidchart, Draw.io, PowerPoint.</li>
+        <li>Material de referencia sobre microcontroladores y comunicación.</li>
+        <li>Computador con acceso a Internet.</li>
+      </ul>
+    </section>
+
+    <!-- Tiempo -->
+    <section aria-labelledby="time-title">
+      <h2 id="time-title">Tiempo Estimado</h2>
+      <p>6 horas: 4 horas de trabajo en clase + 2 horas de trabajo autónomo.</p>
+    </section>
+
+    <!-- Entregable -->
+    <section aria-labelledby="deliverable-title">
+      <h2 id="deliverable-title">Entregable</h2>
+      <p>
+        El proyecto será publicado en Github Pages con un repositorio en Github que incluya:
+      </p>
+      <ul>
+        <li>Documento en el sitio web.</li>
+        <li>Diagrama de bloques del sistema.</li>
+        <li>Explicación del diseño técnico.</li>
+        <li>Justificación de la elección de comunicación y aplicación.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== SECCIÓN INCUBADORA ===================== -->
+    <section aria-labelledby="incubadora-title">
+      <h2 id="incubadora-title">Incubadora de Huevos</h2>
+      <p>
+        Las máquinas incubadoras reproducen las condiciones necesarias para el desarrollo embrionario cuando la madre no está presente.
+        Permiten controlar parámetros como temperatura y humedad para mejorar la eclosión y la salud de los polluelos.
+      </p>
+    </section>
+
+    <!-- ===================== MONITOREO ===================== -->
+    <section aria-labelledby="monitoring-title" class="monitoring">
+      <h2 id="monitoring-title">Monitoreo en Tiempo Real</h2>
+
+      <div class="sensor-readings" role="region" aria-label="Lecturas de sensores">
+        <div class="reading">
+          <h3>Temperatura</h3>
+          <p id="tempValue">-- °C</p>
+        </div>
+
+        <div class="reading">
+          <h3>Humedad</h3>
+          <p id="humidityValue">-- %</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="simulateBtn" aria-controls="tempValue humidityValue statusMessage">Simular lectura</button>
+        <p id="statusMessage" aria-live="polite" class="status">Estado: --</p>
+      </div>
+
+      <hr />
+
+      <h3>Contador de días de incubación</h3>
+      <div class="incubation-controls" role="region" aria-label="Contador de incubación">
+        <p>Tiempo de incubación: <strong id="daysCount">0 días</strong></p>
+
+        <div class="buttons-row">
+          <button id="startIncubation">Iniciar</button>
+          <button id="pauseIncubation" disabled>Pausar</button>
+          <button id="resetIncubation">Reiniciar</button>
+        </div>
+
+        <label class="demo-label">
+          <input type="checkbox" id="demoMode" />
+          Activar modo demo (acelera 1 día = 5 segundos)
+        </label>
+        <p class="hint">El modo demo sirve para pruebas; en uso real el día corresponde a 24 horas.</p>
+      </div>
+    </section>
+
+    <!-- ===================== BLUETOOTH ===================== -->
+    <section aria-labelledby="bluetooth-title" class="info">
+      <h2 id="bluetooth-title">Módulo Bluetooth HC-06 (resumen)</h2>
+      <ul>
+        <li>Comunicación serial de corto alcance (ideal para conectar Arduino con Android).</li>
+        <li>Soporta comandos AT para configuración (poner en modo AT según documentación).</li>
+        <li>Se usa comúnmente para enviar lecturas de sensores y recibir comandos remotos.</li>
+      </ul>
+    </section>
+
+    <!-- ===================== INTEGRANTES ===================== -->
     <section class="integrantes" aria-labelledby="integrantes-title">
       <h2 id="integrantes-title">Integrantes</h2>
       <p><strong>Jerick Florez:</strong> Líder Técnico</p>
       <p><strong>Sebastian Castro:</strong> Líder Documental</p>
     </section>
 
+    <!-- ===================== BIBLIOGRAFÍA ===================== -->
     <section class="bibliografia" aria-labelledby="bibliografia-title">
       <h2 id="bibliografia-title">Fichas Bibliográficas</h2>
       <ul>
-        <li><a href="https://sembralia.com/blogs/blog/tipos-de-incubadoras-de-huevos" target="_blank">Tipos de incubadoras de huevos - Sembralia</a></li>
-        <li><a href="https://www.prometec.net/bt-hc06/" target="_blank">Módulo BlueTooth HC-06 - Prometec</a></li>
-        <li><a href="https://srcsl.com/tipos-sensores-temperatura/" target="_blank">Tipos de sensores de temperatura - SRCSL</a></li>
-        <li><a href="https://www.arcaelectronica.com/collections/temperatura-humedad/products/modulo-rele-con-sensor-de-humedad" target="_blank">Módulo Relé con sensor de humedad - Arca Electrónica</a></li>
+        <li><a href="https://sembralia.com/blogs/blog/tipos-de-incubadoras-de-huevos" target="_blank" rel="noopener noreferrer">Tipos de incubadoras de huevos - Sembralia</a></li>
+        <li><a href="https://www.prometec.net/bt-hc06/" target="_blank" rel="noopener noreferrer">Módulo Bluetooth HC-06 - Prometec</a></li>
+        <li><a href="https://srcsl.com/tipos-sensores-temperatura/" target="_blank" rel="noopener noreferrer">Tipos de sensores de temperatura - SRCSL</a></li>
       </ul>
     </section>
 
+    <!-- ===================== FOOTER ===================== -->
     <footer>
+      <p class="footer-note">Gracias</p>
     </footer>
   </main>
-
-  <script src="index.js"></script>
 </body>
 </html>
